@@ -5,7 +5,28 @@ import reportsRoute from './modules/reports/reports.route.js';
 
 const app = express();
 
-app.use(cors({ origin: process.env.CORS_ORIGIN }));
+const normalizeOrigin = (origin) => origin.replace(/\/$/, '');
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ?.split(',')
+  .map((origin) => normalizeOrigin(origin.trim()))
+  .filter(Boolean) ?? [];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    if (allowedOrigins.includes(normalizeOrigin(origin))) {
+      callback(null, origin);
+      return;
+    }
+
+    callback(null, false);
+  },
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
