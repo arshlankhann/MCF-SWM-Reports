@@ -8,6 +8,8 @@ import { AlertCircle, CheckCircle2, Filter, FileText, Download } from 'lucide-re
 import { generateDispatchLetter } from './utils/pdfGenerator';
 import { exportToExcel } from './utils/excelGenerator';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function App() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +33,7 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/reports/upload', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/reports/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
