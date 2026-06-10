@@ -83,11 +83,11 @@ export default function VisualOverview({ payload, startDate, endDate, selectedAg
   if (!payload) return null;
 
   return (
-    <div className="h-full w-full flex flex-col p-6 bg-gray-50 border-l border-gray-200 overflow-hidden">
+    <div className="h-full w-full flex flex-col p-6 bg-gray-50 border-l border-gray-200 overflow-y-auto">
       <h2 className="text-xl font-bold text-gray-800 mb-4 flex-shrink-0">Visual Overview</h2>
       
       {/* Pie Chart Section */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-4 flex-1 min-h-0 flex flex-col">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-4 h-[380px] flex-shrink-0 flex flex-col">
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2 text-center flex-shrink-0">Status Distribution</h3>
         <div className="flex-1 min-h-0">
           <ResponsiveContainer width="100%" height="100%">
@@ -114,7 +114,7 @@ export default function VisualOverview({ payload, startDate, endDate, selectedAg
 
       {/* Bar Chart Section */}
       {barData.length > 0 && (
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1 min-h-0 flex flex-col">
+        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 h-[380px] flex-shrink-0 flex flex-col">
           <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2 text-center flex-shrink-0">
             {(!startDate && !endDate && !selectedAgency) ? 'Top 10 Agencies' : 'Agency Status Breakdown'}
           </h3>

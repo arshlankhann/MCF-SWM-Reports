@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { UploadCloud } from 'lucide-react';
 
-export default function FileUpload({ onUpload, isLoading }) {
+export default function FileUpload({ onUpload, isLoading, label }) {
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef(null);
 
@@ -36,8 +36,8 @@ export default function FileUpload({ onUpload, isLoading }) {
   };
 
   return (
-    <div 
-      className={`relative w-full rounded-xl border-2 border-dashed transition-colors flex flex-row items-center justify-between px-6 py-3 bg-white ${
+    <div
+      className={`relative rounded-lg border-2 border-dashed transition-colors flex flex-row items-center gap-2 px-3 py-2 bg-white overflow-hidden ${
         dragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-50'
       } ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
       onDragEnter={handleDrag}
@@ -52,22 +52,16 @@ export default function FileUpload({ onUpload, isLoading }) {
         className="hidden"
         onChange={handleChange}
       />
-      <div className="flex items-center space-x-4">
-        <div className="p-2 bg-blue-100 rounded-full text-blue-600">
-          <UploadCloud size={24} />
-        </div>
-        <div className="text-left">
-          <p className="text-sm font-semibold text-gray-700">
-            {isLoading ? 'Uploading...' : 'Drag Excel sheet here'}
-          </p>
-        </div>
-      </div>
-      <button 
-        className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors ml-4 whitespace-nowrap"
+      <UploadCloud size={16} className="text-blue-500 flex-shrink-0" />
+      <p className="text-xs font-medium text-gray-600 truncate flex-1 min-w-0">
+        {isLoading ? 'Uploading...' : (label || 'Drag Excel here')}
+      </p>
+      <button
+        className="flex-shrink-0 px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-md hover:bg-blue-700 transition-colors"
         onClick={onButtonClick}
         disabled={isLoading}
       >
-        Select File
+        {isLoading ? '...' : 'Select'}
       </button>
     </div>
   );
